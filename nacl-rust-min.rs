@@ -1,29 +1,29 @@
 // Copyright (c) 2015 Tim Neumann <mail@timnn.me>
 
 // This file documents the bare minimum code require to ensure a Native Client
-// plugin succesffully loads (without any external dependencies).
+// plugin successfully loads (without any external dependencies).
 // It will print a simple message for each function called to chrome's stdout.
 
 // To compile run rustc --target le32-unknown-nacl nacl-rust-min.rs
 
 #![crate_name = "nacl-rust-min"]
 
-// We wan't to create a binary, it will have the .pexe extension. (Portable
+// We want to create a binary, it will have the .pexe extension. (Portable
 // Native Client Executable)
 // If you require a .nexe you have to convert the .pexe with rust-pnacl-trans.
 #![crate_type = "bin"]
 
-// While we want a binary, the main function will be provided.
+// While we want a binary, the main function will be provided by the nacl api..
 #![no_main]
 
 #![allow(non_snake_case, non_camel_case_types)]
 
-// Contains various stubs (for example main) required to successful linking.
+// Contains various stubs (for example main) required for successful linking.
 #[link(name = "ppapi_stub", kind = "static")]
 extern "C" {}
 
-// We could get these and strcmp from the libc crate but I want this to be with
-// as little external code as possible.
+// We could get these and strcmp from the libc crate but I want to minimize
+// 'external' dependencies.
 pub type c_char = u8;
 pub type c_int = i32;
 pub type c_void = u8;
@@ -62,7 +62,7 @@ pub extern "C" fn PPP_GetInterface(interface_name: *const c_char) -> *const c_vo
     ::std::ptr::null()
 }
 
-// Require by nacl. Might be called when out module is no longer needed.
+// Required by nacl. Might be called when out module is no longer needed.
 #[no_mangle]
 pub extern "C" fn PPP_ShutdownModule() {
     println!("[call] shutdown module")
@@ -87,7 +87,7 @@ static INSTANCE: PPP_Instance = PPP_Instance {
     handle_document_load: handle_document_load,
 };
 
-// The implementations for the Instance interface functions.
+// The implementations of the Instance interface functions.
 
 extern "C" fn did_create(_: i32, _: u32, _: *mut *const c_char, _: *mut *const c_char) -> i32 {
     println!("[call] did create");

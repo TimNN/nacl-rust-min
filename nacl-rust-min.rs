@@ -6,7 +6,7 @@
 
 // To compile run rustc --target le32-unknown-nacl nacl-rust-min.rs
 
-#![crate_name = "nacl-rust-min"]
+#![crate_name = "nacl_rust_min"]
 
 // We want to create a binary, it will have the .pexe extension. (Portable
 // Native Client Executable)

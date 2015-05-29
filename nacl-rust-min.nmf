@@ -2,7 +2,7 @@
   "program": {
     "portable": {
       "pnacl-translate": {
-        "url": "nacl-rust-min.pexe"
+        "url": "nacl_rust_min.pexe"
       }
     }
   }
